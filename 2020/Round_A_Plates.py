@@ -14,7 +14,7 @@ def running_sum(l_in):
 	return l_out
 
 
-def solver():
+def solver(dp):
 	#Corresponding to N,K,P
 	count_lines, length, num_plates_needed = map(int, input().split())
 	#print(count_lines)
@@ -35,14 +35,12 @@ def solver():
 
 	#print(stacks)
 
-	#Construct the solution table
-	'''
-	The solution table dp[i][j] stores the best beauty value possible from
-	using the first i stacks, picking j plates in total across stacks. j starts
-	from zero to take into consideration of not picking any plate from a
-	particular stack
-	'''
-	dp = [[0 for x in range(num_plates_needed+1)] for y in range(count_lines)]
+	#reset DP
+	for i in range(count_lines+1):
+		for j in range(num_plates_needed+1):
+			dp[i][j] = 0
+
+
 	#print(dp)
 
 	#Iterate through the stacks
@@ -70,8 +68,17 @@ def main():
 
 	num_cases = int(input())
 
+	#Construct the solution table
+	'''
+	The solution table dp[i][j] stores the best beauty value possible from
+	using the first i stacks, picking j plates in total across stacks. j starts
+	from zero to take into consideration of not picking any plate from a
+	particular stack
+	'''
+	dp = [[0 for x in range(1500+1)] for y in range(1000)]
+
 	for i in range(num_cases):
-		ans = solver()
+		ans = solver(dp)
 		print("Case #{}: {}".format(i+1, ans))
 
 		
